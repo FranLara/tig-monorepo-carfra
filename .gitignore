@@ -14,3 +14,6 @@ Cargo.lock
 *.pdb
 
 .vscode/
+
+.DS_Store
+execution_scripts/
