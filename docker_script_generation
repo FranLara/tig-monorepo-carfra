@@ -28,7 +28,7 @@ for satisfiability in "${satisfiability_algos[@]}"; do
         # Create the script file
         filename="exec-$counter"
         echo "echo '$json_content' > algo_selection-$counter.json" > "$filename"
-        echo "docker run -d -v \$(dirname \$(pwd)):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-$counter.json" >> "$filename"
+        echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-$counter.json" >> "$filename"
         chmod 755 "$filename"
 
         # Increment the counter
