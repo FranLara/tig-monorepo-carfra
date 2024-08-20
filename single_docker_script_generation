@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIRECTORY=single_execution_scripts
+
+rm -rf $SCRIPT_DIRECTORY
+
+mkdir $SCRIPT_DIRECTORY
+cd $SCRIPT_DIRECTORY
+
+# Define arrays for each algorithm category
+satisfiability_algos=("schnoing" "dpll_backtracking" "walk_sat" "genetic_sat" "satisfiapilled" "i_cant_get_no" "need_for_speed" "walk_sat_adapt_tabu" "fast_walk_sat" "sprint_sat" "faster_walk_sat" "fastest_walk_sat" "filter_sat" "sprintier_sat" "inbound" "double_optimized" "fast_cdcl_sat_solver" "hybrid_ultra_fast" "optimized_sprint_sat" "sat_allocd" "mt_sat")
+vehicle_routing_algos=("clarke_wright" "ant_colony" "genetic_algorithm" "simulated_annealing" "limitless" "dynamic_colonies" "lazier_cw" "guided_clarck_wrigth" "aco_sbas" "fast_exit_clarke" "filter_cw" "overloded" "clarke_wright_opt" "clarke_wright_who" "cw_two_opt_ls" "super_heaped" "enhanced_annealing" "optimized_clarke" "adaptive_cluster" "compact_gcw" "fast_exit_cw_topt_ls" "inbound" "compact_gcw_turbo" "improv_clarke_wright")
+knapsack_algos=("dynamic" "greedy" "branch_and_bound" "genetic" "tabu_search" "knapmaxxing" "better_in_twos" "tinhat_pete" "knapsplorify" "dual_descent" "ironhat_pete" "flat_dp" "filter_knapmaxxing" "better_knap" "better_knapm" "optimised_knapmax" "overlodes_sack" "knapheudp" "over_knapmaxxed" "needaknap" "sack_o_potatoes" "lightning_knapsack" "quantum_knapsack" "ultra_fast_knapsack" "sackophone")
+vector_search_algos=("optimal_ann" "kd_tree" "brute_force_bacalhau" "hyper_index" "fast_search")
+
+# Counter for naming files
+counter=1
+
+# Iterate over each combination of algorithms
+for satisfiability in "${satisfiability_algos[@]}"; do
+  # Generate the JSON content
+  json_content="{\"satisfiability\":\"$satisfiability\"}"
+
+  # Create the script file
+  filename="exec-sat-$counter"
+  echo "echo '$json_content' > algo_selection-sat-$counter.json" > "$filename"
+  echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-sat-$counter.json" >> "$filename"
+  chmod 755 "$filename"
+
+  # Increment the counter
+  counter=$((counter + 1))
+
+done
+
+echo "Generated $((counter-1)) Satisfiability script files."
+
+# Counter for naming files
+counter=1
+
+# Iterate over each combination of algorithms
+for vehicle_routing in "${vehicle_routing_algos[@]}"; do
+  # Generate the JSON content
+  json_content="{\"vehicle_routing\":\"$vehicle_routing\"}"
+
+  # Create the script file
+  filename="exec-veh-$counter"
+  echo "echo '$json_content' > algo_selection-veh-$counter.json" > "$filename"
+  echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-veh-$counter.json" >> "$filename"
+  chmod 755 "$filename"
+
+  # Increment the counter
+  counter=$((counter + 1))
+
+done
+
+echo "Generated $((counter-1)) Vehicle Routing script files."
+
+# Counter for naming files
+counter=1
+
+# Iterate over each combination of algorithms
+for knapsack in "${knapsack_algos[@]}"; do
+  # Generate the JSON content
+  json_content="{\"knapsack\":\"$knapsack\"}"
+
+  # Create the script file
+  filename="exec-knap-$counter"
+  echo "echo '$json_content' > algo_selection-knap-$counter.json" > "$filename"
+  echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-knap-$counter.json" >> "$filename"
+  chmod 755 "$filename"
+
+  # Increment the counter
+  counter=$((counter + 1))
+
+done
+
+echo "Generated $((counter-1)) Knapsack script files."
+
+# Counter for naming files
+counter=1
+
+# Iterate over each combination of algorithms
+for vector_search in "${vector_search_algos[@]}"; do
+  # Generate the JSON content
+  json_content="{\"vector_search\":\"$vector_search\"}"
+
+  # Create the script file
+  filename="exec-vec-$counter"
+  echo "echo '$json_content' > algo_selection-vec-$counter.json" > "$filename"
+  echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-vec-$counter.json" >> "$filename"
+  chmod 755 "$filename"
+
+  # Increment the counter
+  counter=$((counter + 1))
+
+done
+
+echo "Generated $((counter-1)) Vector script files."
