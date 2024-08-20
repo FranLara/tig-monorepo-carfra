@@ -17,3 +17,5 @@ Cargo.lock
 
 .DS_Store
 execution_scripts/
+algo_selection*
+exec*
