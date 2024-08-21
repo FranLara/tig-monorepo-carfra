@@ -306,11 +306,20 @@ async fn run_once(num_workers: u32, ms_per_benchmark: u32) -> Result<()> {
                 num_attempts += nonce_iter.attempts();
                 finished &= nonce_iter.is_empty();
             }
+
+	    if num_solutions > 0 {
+                print!("+")
+            } else {
+                print!(".")
+            }
+	    /*
             update_status(&format!(
                 "Computed {} solutions out of {} instances",
                 num_solutions, num_attempts
             ))
             .await;
+	    */
+
             let State {
                 status,
                 timer: time_left,
