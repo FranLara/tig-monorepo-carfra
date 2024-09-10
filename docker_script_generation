@@ -8,9 +8,9 @@ mkdir $SCRIPT_DIRECTORY
 cd $SCRIPT_DIRECTORY
 
 # Define arrays for each algorithm category
-satisfiability_algos=("schnoing" "dpll_backtracking" "walk_sat" "genetic_sat" "satisfiapilled" "i_cant_get_no" "need_for_speed" "walk_sat_adapt_tabu" "fast_walk_sat" "sprint_sat" "faster_walk_sat" "fastest_walk_sat" "filter_sat" "sprintier_sat" "inbound" "double_optimized" "fast_cdcl_sat_solver" "hybrid_ultra_fast" "optimized_sprint_sat" "sat_allocd" "mt_sat" "cuda_example" "heuristics_gsat" "manual_sat")
-vehicle_routing_algos=("clarke_wright" "ant_colony" "genetic_algorithm" "simulated_annealing" "limitless" "dynamic_colonies" "lazier_cw" "guided_clarck_wrigth" "aco_sbas" "fast_exit_clarke" "filter_cw" "overloded" "clarke_wright_opt" "clarke_wright_who" "cw_two_opt_ls" "super_heaped" "enhanced_annealing" "optimized_clarke" "adaptive_cluster" "compact_gcw" "fast_exit_cw_topt_ls" "inbound" "compact_gcw_turbo" "improv_clarke_wright" "cw_heuristic" "clarke_wright_super")
-knapsack_algos=("dynamic" "greedy" "branch_and_bound" "genetic" "tabu_search" "knapmaxxing" "better_in_twos" "tinhat_pete" "knapsplorify" "dual_descent" "ironhat_pete" "flat_dp" "filter_knapmaxxing" "better_knapp" "better_knapm" "optimised_knapmax" "overlodes_sack" "knapheudp" "over_knapmaxxed" "needaknap" "sack_o_potatoes" "lightning_knapsack" "quantum_knapsack" "ultra_fast_knapsack" "sackophone" "knap_zilla" "knap_suck" "quick_knap")
+satisfiability_algos=("schnoing" "dpll_backtracking" "walk_sat" "genetic_sat" "satisfiapilled" "i_cant_get_no" "need_for_speed" "walk_sat_adapt_tabu" "fast_walk_sat" "sprint_sat" "faster_walk_sat" "fastest_walk_sat" "filter_sat" "sprintier_sat" "inbound" "double_optimized" "fast_cdcl_sat_solver" "hybrid_ultra_fast" "optimized_sprint_sat" "sat_allocd" "mt_sat" "cuda_example" "heuristics_gsat" "manual_sat" "satisfactory" "sat_optima" "ultra_sat_allocd" "sat_opaa" "sat_opaafast")
+vehicle_routing_algos=("clarke_wright" "ant_colony" "genetic_algorithm" "simulated_annealing" "limitless" "dynamic_colonies" "lazier_cw" "guided_clarck_wrigth" "aco_sbas" "fast_exit_clarke" "filter_cw" "overloded" "clarke_wright_opt" "clarke_wright_who" "cw_two_opt_ls" "super_heaped" "enhanced_annealing" "optimized_clarke" "adaptive_cluster" "compact_gcw" "fast_exit_cw_topt_ls" "inbound" "compact_gcw_turbo" "improv_clarke_wright" "cw_heuristic" "clarke_wright_super" "cw_super_gpu" "quick_cw")
+knapsack_algos=("dynamic" "greedy" "branch_and_bound" "genetic" "tabu_search" "knapmaxxing" "better_in_twos" "tinhat_pete" "knapsplorify" "dual_descent" "ironhat_pete" "flat_dp" "filter_knapmaxxing" "better_knapp" "better_knapm" "optimised_knapmax" "overlodes_sack" "knapheudp" "over_knapmaxxed" "needaknap" "sack_o_potatoes" "lightning_knapsack" "quantum_knapsack" "ultra_fast_knapsack" "sackophone" "knap_zilla" "knap_suck" "quick_knap" "optimism_dollop" "optimized_aa")
 vector_search_algos=("optimal_ann" "kd_tree" "brute_force_bacalhau" "hyper_index" "fast_search" "cudabefaster" "tree_times_a_lady" "hyperplanejane" "cudamatata" "optimax_gpu" "gpu_manual_fast" "gpu_manual_fastest" "fast_search_cuda" "vector_finder_multi" "fasterer_search" "bacalhau_gpu" "manual_fast_search" "presort_msr" "optimax_search")
 
 # Counter for naming files
@@ -26,7 +26,7 @@ for satisfiability in "${satisfiability_algos[@]}"; do
         json_content="{\"satisfiability\":\"$satisfiability\",\"vehicle_routing\":\"$vehicle_routing\",\"knapsack\":\"$knapsack\",\"vector_search\":\"$vector_search\"}"
 
         # Create the script file
-        filename="exec-$counter"
+        filename="exec-$satisfiability-$vehicle_routing-$knapsack-$vector_search"
         echo "echo '$json_content' > algo_selection-$satisfiability-$vehicle_routing-$knapsack-$vector_search.json" > "$filename"
         echo "docker run -d -v \$(pwd):/app tig-benchmarker 0x12cd6abe7cbbaa3417847c323ad29f07400ece9e ee35ce0a42c85482d3513a9c2d17dbe1 algo_selection-$satisfiability-$vehicle_routing-$knapsack-$vector_search.json" >> "$filename"
         chmod 755 "$filename"
